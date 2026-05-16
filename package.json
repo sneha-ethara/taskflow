@@ -1,8 +1,8 @@
 {
-  "name": "team-task-manager",
+  "name": "taskflow",
   "version": "1.0.0",
   "private": true,
-  "description": "Full-stack Team Task Manager with React, Express, Prisma, and PostgreSQL.",
+  "description": "Taskflow - full-stack project delivery and task operations suite",
   "type": "module",
   "main": "index.js",
   "scripts": {
