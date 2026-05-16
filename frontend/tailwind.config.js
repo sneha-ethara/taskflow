@@ -4,9 +4,12 @@ export default {
     extend: {
       colors: {
         ink: "#172033",
-        moss: "#4b7f52",
-        coral: "#d96c4f",
-        gold: "#d9a441"
+        night: "#111827",
+        paper: "#f7f3ea",
+        teal: "#0f766e",
+        amber: "#d97706",
+        ember: "#dc4a35",
+        fern: "#5f7d4f"
       }
     }
   },

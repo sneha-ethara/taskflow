@@ -25,10 +25,10 @@ export function roleLabel(role) {
 
 export function priorityClass(priority) {
   return {
-    LOW: "bg-emerald-100 text-emerald-700",
-    MEDIUM: "bg-gold/20 text-amber-800",
-    HIGH: "bg-coral/15 text-coral"
-  }[priority] || "bg-slate-100 text-slate-700";
+    LOW: "bg-fern/15 text-fern ring-1 ring-fern/20",
+    MEDIUM: "bg-amber/15 text-amber ring-1 ring-amber/25",
+    HIGH: "bg-ember/15 text-ember ring-1 ring-ember/20"
+  }[priority] || "bg-stone-100 text-stone-700 ring-1 ring-stone-200";
 }
 
 export function getErrorMessage(error) {

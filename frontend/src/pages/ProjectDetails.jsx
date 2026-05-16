@@ -49,22 +49,26 @@ export default function ProjectDetails() {
     onError: (err) => setError(getErrorMessage(err))
   });
 
-  if (project.isLoading) return <p className="text-sm text-slate-500">Loading project...</p>;
+  if (project.isLoading) return <p className="text-sm text-stone-500">Loading project...</p>;
 
   const data = project.data;
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-ink">{data.name}</h2>
-        <p className="mt-1 text-sm text-slate-500">{data.description || "No description provided."}</p>
-      </div>
+      <section className="rounded-[2rem] bg-night p-6 text-white shadow-xl shadow-night/15 sm:p-8">
+        <p className="text-xs font-black uppercase tracking-[0.24em] text-amber">Project room</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">{data.name}</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-white/65">{data.description || "No description provided."}</p>
+      </section>
 
-      {error && <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-ember/10 p-3 text-sm text-ember">{error}</p>}
 
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div>
-          <h3 className="mb-3 text-lg font-semibold text-ink">Tasks</h3>
+          <div className="mb-3">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-teal">Scope</p>
+            <h3 className="text-2xl font-black text-ink">Tasks</h3>
+          </div>
           <div className="grid gap-4">
             {data.tasks?.map((task) => (
               <TaskCard
@@ -74,36 +78,36 @@ export default function ProjectDetails() {
                 onDelete={(taskId) => deleteTask.mutate(taskId)}
               />
             ))}
-            {!data.tasks?.length && <p className="rounded-lg border border-slate-200 bg-white p-5 text-sm text-slate-500">No tasks yet.</p>}
+            {!data.tasks?.length && <p className="surface rounded-3xl p-5 text-sm text-stone-600">No tasks yet.</p>}
           </div>
         </div>
 
         <aside className="space-y-4">
           {canManageProjects && (
-            <form className="rounded-lg border border-slate-200 bg-white p-5" onSubmit={(event) => { event.preventDefault(); addMember.mutate(); }}>
-              <h3 className="font-semibold text-ink">Add member</h3>
-              <select className="focus-ring mt-3 w-full rounded-md border border-slate-200 px-3 py-2" value={userId} onChange={(e) => setUserId(e.target.value)} required>
+            <form className="surface rounded-3xl p-5" onSubmit={(event) => { event.preventDefault(); addMember.mutate(); }}>
+              <h3 className="font-black text-ink">Add member</h3>
+              <select className="field mt-3 w-full" value={userId} onChange={(e) => setUserId(e.target.value)} required>
                 <option value="">Select user</option>
                 {users.data?.map((user) => <option key={user.id} value={user.id}>{user.name} ({roleLabel(user.role)})</option>)}
               </select>
-              <button className="focus-ring mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md bg-moss px-4 py-2 font-semibold text-white hover:bg-moss/90">
+              <button className="focus-ring mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-amber px-4 py-2 font-black text-white transition hover:bg-amber/90">
                 <Plus size={18} />
                 Add
               </button>
             </form>
           )}
 
-          <div className="rounded-lg border border-slate-200 bg-white p-5">
-            <h3 className="font-semibold text-ink">Members</h3>
+          <div className="surface rounded-3xl p-5">
+            <h3 className="font-black text-ink">Members</h3>
             <div className="mt-3 space-y-3">
               {data.members?.map((member) => (
-                <div className="flex items-center justify-between gap-3 rounded-md bg-slate-50 p-3" key={member.id}>
-                  <div>
-                    <p className="text-sm font-medium text-ink">{member.user.name}</p>
-                    <p className="text-xs text-slate-500">{member.user.email} - {roleLabel(member.user.role)}</p>
+                <div className="flex items-center justify-between gap-3 rounded-2xl bg-stone-100 p-3" key={member.id}>
+                  <div className="min-w-0">
+                    <p className="text-sm font-black text-ink">{member.user.name}</p>
+                    <p className="truncate text-xs text-stone-500">{member.user.email} - {roleLabel(member.user.role)}</p>
                   </div>
                   {canManageProjects && (
-                    <button className="focus-ring rounded-md p-2 text-slate-400 hover:bg-red-50 hover:text-red-600" onClick={() => removeMember.mutate(member.id)} aria-label="Remove member">
+                    <button className="icon-button shrink-0 hover:border-ember/30 hover:bg-ember/10 hover:text-ember" onClick={() => removeMember.mutate(member.id)} aria-label="Remove member">
                       <Trash2 size={16} />
                     </button>
                   )}
